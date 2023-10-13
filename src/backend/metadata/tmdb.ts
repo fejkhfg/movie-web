@@ -175,8 +175,8 @@ function getImage(url: string) {
 }
 
 export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
-  if (movieReleaseDate && movieName) /*return*/ getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`/*)*/ return "";
-  if (movieName) /*return*/ getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`/*)*/ return "";
+  if (movieReleaseDate && movieName) /*return*/ getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`); return "";
+  if (movieName) /*return*/ getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`); return "";
 }
 
 export async function getEpisodes(
