@@ -176,7 +176,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
 
     promise.then(function (e) {
-        console.log(e + " TESTTTT");
+        console.log(e);
     });
 
     return "";
@@ -190,7 +190,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
 
     promise.then(function (e) {
-        console.log(e + " TESTTTT");
+        console.log(e);
     });
 
 
