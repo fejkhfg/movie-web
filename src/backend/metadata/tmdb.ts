@@ -168,8 +168,8 @@ function getImage(url: string) {
 }
 
 export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
-  if (movieReleaseDate && movieName) return getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`).poster;
-  if (movieName) return getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`).poster;
+  if (movieReleaseDate && movieName) return getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`).Poster;
+  if (movieName) return getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`).Poster;
 }
 
 export async function getEpisodes(
@@ -236,7 +236,7 @@ export function formatTMDBSearchResult(
 
   return {
     title: movie.title,
-    poster: await getMediaPoster(movie.title, new Date(movie.release_date).getFullYear()),
+    poster: getMediaPoster(movie.title, new Date(movie.release_date).getFullYear()),
     id: movie.id,
     original_release_year: new Date(movie.release_date).getFullYear(),
     object_type: mediatype,
