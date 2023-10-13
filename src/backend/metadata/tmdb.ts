@@ -219,7 +219,7 @@ export function formatTMDBSearchResult(
   const type = TMDBMediaToMediaType(mediatype);
   if (type === MWMediaType.SERIES) {
     const show = result as TMDBShowResult;
-    console.log(result);
+    // console.log(result);
     return {
       title: show.name,
       poster: getMediaPoster(show.poster_path),
