@@ -167,13 +167,13 @@ function formatUrl(url: string): string {
   return url.replace(/\s+/g, '-');
 }
 
-function getImage(url: string) {
+function getImage<T>(url: string): Promise<T> {
   return baseRawFetch(formatUrl(url));
 }
 
-export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
+export function getMediaPoster<T>(movieName: string | null, movieReleaseDate: number | null): string | undefined {
   if (movieReleaseDate && movieName) {
-    const promise = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
+    const promise = getImage<{data: {PromiseState: boolean, PromiseResult: Object}}>(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
 
     if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
       return promise.PromiseResult.Poster;
@@ -182,7 +182,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     return "";
   }
   if (movieName) {
-    const promise = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
+    const promise = getImage<{data: {PromiseState: boolean, PromiseResult: Object}}>(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
 
     if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
       return promise.PromiseResult.Poster;
