@@ -18,7 +18,7 @@ const baseFetch = ofetch.create({
   retry: 0,
 });
 
-export function baseRawFetch(url: string): {any} {
+export function baseRawFetch(url: string) {
   return baseFetch(url);
 }
 
