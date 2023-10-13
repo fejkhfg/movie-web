@@ -168,17 +168,12 @@ async function getImage(url: string) {
   console.log(await baseRawFetch(url));
 }
 
-export function getMediaPoster(
-  movieName: string | null,
-  movieReleaseDate: number | null
-): string | undefined {
+export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
   if (movieReleaseDate && movieName) {
-    getImage(
-      `https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`
-    );
+    getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
     return `https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`;
   } else if (movieName) {
-    getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
+    getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`); 
     return `https://www.omdbapi.com/?apikey=daf2604&&t=${movieName}`;
   }
 }
@@ -237,10 +232,7 @@ export function formatTMDBSearchResult(
     const show = result as TMDBShowResult;
     return {
       title: show.name,
-      poster: getMediaPoster(
-        show.name,
-        new Date(show.first_air_date).getFullYear()
-      ),
+      poster: getMediaPoster(show.name, new Date(show.first_air_date).getFullYear()),
       id: show.id,
       original_release_year: new Date(show.first_air_date).getFullYear(),
       object_type: mediatype,
@@ -250,10 +242,7 @@ export function formatTMDBSearchResult(
 
   return {
     title: movie.title,
-    poster: getMediaPoster(
-      movie.title,
-      new Date(movie.release_date).getFullYear()
-    ),
+    poster: getMediaPoster(movie.title, new Date(movie.release_date).getFullYear()),
     id: movie.id,
     original_release_year: new Date(movie.release_date).getFullYear(),
     object_type: mediatype,
