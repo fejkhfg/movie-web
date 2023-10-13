@@ -169,7 +169,7 @@ function formatUrl(url: string): string {
 
 function getImage(url: string): {data: {Poster: string}} {
   console.log(formatUrl(url));
-  let response: {data: {Poster: string}} = baseRawFetch(formatUrl(url));
+  const response: {data: {Poster: string}} = baseRawFetch(formatUrl(url));
   return response;
 }
 
