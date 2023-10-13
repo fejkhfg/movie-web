@@ -58,7 +58,7 @@ export function formatTMDBMetaResult(
       id: details.id,
       title: movie.title,
       object_type: mediaTypeToTMDB(type),
-      poster: getMediaPoster(movie.poster_path) ?? undefined,
+      poster: getMediaPoster(movie.name, new Date(movie.release_date).getFullYear()) ?? undefined,
       original_release_year: new Date(movie.release_date).getFullYear(),
     };
   }
@@ -73,7 +73,7 @@ export function formatTMDBMetaResult(
         season_number: v.season_number,
         title: v.name,
       })),
-      poster: getMediaPoster(show.poster_path) ?? undefined,
+      poster: getMediaPoster(show.name, new Date(show.first_air_date).getFullYear()) ?? undefined,
       original_release_year: new Date(show.first_air_date).getFullYear(),
     };
   }
