@@ -178,6 +178,10 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     console.log(typeof(promise));
     console.log(promise);
 
+    for (any var : promise) { 
+      console.log(var);
+    }
+
     return "";
 
     // if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
@@ -189,6 +193,10 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
 
     console.log(typeof(promise));
     console.log(promise);
+
+    for (any var : promise) { 
+      console.log(var);
+    }
 
     return "";
 
