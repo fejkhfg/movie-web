@@ -18,7 +18,7 @@ import {
   TMDBShowResponse,
   TMDBShowResult,
 } from "./types/tmdb";
-import { mwFetch, baseRawFetch } from "../helpers/fetch";
+import { baseRawFetch, mwFetch } from "../helpers/fetch";
 
 export function mediaTypeToTMDB(type: MWMediaType): TMDBContentTypes {
   if (type === MWMediaType.MOVIE) return "movie";
