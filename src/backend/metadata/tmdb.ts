@@ -164,6 +164,7 @@ export function getMediaDetails<
 }
 
 export function getMediaPoster(posterPath: string | null): string | undefined {
+  console.log("getting image");
   if (posterPath) return `https://image.tmdb.org/t/p/w185/${posterPath}`;
 }
 
