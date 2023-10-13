@@ -179,6 +179,8 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
         console.log(e + " TESTTTT");
     });
 
+    return "";
+
     // if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
     //   console.log(promise.PromiseResult);
     //   return promise.PromiseResult.Poster;
@@ -190,6 +192,9 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     promise.then(function (e) {
         console.log(e + " TESTTTT");
     });
+
+
+    return "";
 
     // if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
     //   console.log(promise.PromiseResult);
