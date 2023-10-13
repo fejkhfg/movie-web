@@ -237,7 +237,7 @@ export function formatTMDBSearchResult(
 
   return {
     title: movie.title,
-    poster: getMediaPoster(movie.name, new Date(movie.release_date).getFullYear()),
+    poster: getMediaPoster(movie.title, new Date(movie.release_date).getFullYear()),
     id: movie.id,
     original_release_year: new Date(movie.release_date).getFullYear(),
     object_type: mediatype,
