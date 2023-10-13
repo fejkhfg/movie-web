@@ -172,7 +172,7 @@ function getImage<T>(url: string): Promise<T> {
 }
 
 export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
-    let poster: string = "";
+    let poster = "";
 
   if (movieReleaseDate && movieName) {
     const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
