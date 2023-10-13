@@ -168,15 +168,28 @@ function formatUrl(url: string): string {
 }
 
 function getImage(url: string) {
-  console.log(formatUrl(url));
-  console.log(baseRawFetch(formatUrl(url)));
-  
   return baseRawFetch(formatUrl(url));
 }
 
 export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
-  if (movieReleaseDate && movieName) getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`); return "";
-  if (movieName) getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`); return "";
+  if (movieReleaseDate && movieName) {
+    const promise = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
+
+    if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
+      return promise.PromiseResult.Poster;
+    }
+
+    return "";
+  }
+  if (movieName) {
+    const promise = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
+
+    if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
+      return promise.PromiseResult.Poster;
+    }
+
+    return "";
+  }
 }
 
 export async function getEpisodes(
