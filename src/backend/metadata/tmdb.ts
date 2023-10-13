@@ -173,24 +173,28 @@ function getImage<T>(url: string): Promise<T> {
 
 export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
   if (movieReleaseDate && movieName) {
-    const promise: any = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
+    const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
 
-    console.log(promise);
+    promise.then(function (e) {
+        console.log(e + " TESTTTT");
+    });
 
-    if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
-      console.log(promise.PromiseResult);
-      return promise.PromiseResult.Poster;
-    }
+    // if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
+    //   console.log(promise.PromiseResult);
+    //   return promise.PromiseResult.Poster;
+    // }
   }
   if (movieName) {
-    const promise: any = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
+    const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
 
-     console.log(promise);
+    promise.then(function (e) {
+        console.log(e + " TESTTTT");
+    });
 
-    if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
-      console.log(promise.PromiseResult);
-      return promise.PromiseResult.Poster;
-    }
+    // if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
+    //   console.log(promise.PromiseResult);
+    //   return promise.PromiseResult.Poster;
+    // }
   }
 }
 
