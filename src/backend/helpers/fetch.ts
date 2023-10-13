@@ -19,7 +19,7 @@ const baseFetch = ofetch.create({
 });
 
 export function baseRawFetch(url: string) {
-  return baseFetch<T>(url);
+  return baseFetch(url);
 }
 
 export function makeUrl(url: string, data: Record<string, string>) {
