@@ -199,6 +199,8 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     // }
   }
 
+  console.log(poster);
+
   return poster;
 }
 
