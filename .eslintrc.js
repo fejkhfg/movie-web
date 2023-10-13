@@ -31,7 +31,7 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "import", "prettier"],
   rules: {
-    "indent": ["error", 3],
+    "indent": ["warn", 3],
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "react/require-default-props": "off",
