@@ -163,9 +163,10 @@ export function getMediaDetails<
   throw new Error("Invalid media type");
 }
 
-export function getMediaPoster(posterPath: string | null): string | undefined {
+export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
   console.log("getting image");
-  if (posterPath) return `https://image.tmdb.org/t/p/w185/${posterPath}`;
+  if (movieReleaseDate && movieName) return `https://www.omdbapi.com/?apikey=daf26042&&t=${movieName}&y=${movieReleaseDate}`;
+  if (movieName) return `https://www.omdbapi.com/?apikey=daf26042&&t=${movieName}`;
 }
 
 export async function getEpisodes(
@@ -222,7 +223,7 @@ export function formatTMDBSearchResult(
     const show = result as TMDBShowResult;
     return {
       title: show.name,
-      poster: getMediaPoster(show.poster_path),
+      poster: getMediaPoster(show.name, new Date(show.first_air_date).getFullYear()),
       id: show.id,
       original_release_year: new Date(show.first_air_date).getFullYear(),
       object_type: mediatype,
@@ -232,7 +233,7 @@ export function formatTMDBSearchResult(
 
   return {
     title: movie.title,
-    poster: getMediaPoster(movie.poster_path),
+    poster: getMediaPoster(movie.name, new Date(movie.release_date).getFullYear()),
     id: movie.id,
     original_release_year: new Date(movie.release_date).getFullYear(),
     object_type: mediatype,
