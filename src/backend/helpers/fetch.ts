@@ -18,6 +18,10 @@ const baseFetch = ofetch.create({
   retry: 0,
 });
 
+export function baseRawFetch(url: string) {
+  return baseFetch<T>(url);
+}
+
 export function makeUrl(url: string, data: Record<string, string>) {
   let parsedUrl: string = url;
   Object.entries(data).forEach(([k, v]) => {
