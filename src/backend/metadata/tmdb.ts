@@ -168,7 +168,7 @@ function formatUrl(url: string): string {
 }
 
 function getImage<T>(url: string): Promise<T> {
-  return baseRawFetch(formatUrl(url));
+  return baseRawFetch<T>(formatUrl(url));
 }
 
 export function getMediaPoster<T>(movieName: string | null, movieReleaseDate: number | null): string | undefined {
