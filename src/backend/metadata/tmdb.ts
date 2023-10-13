@@ -173,14 +173,14 @@ function getImage<T>(url: string): Promise<T> {
 
 export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
   if (movieReleaseDate && movieName) {
-    const promise = getImage<{PromiseState: boolean, PromiseResult: [Poster: string]}>(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
+    const promise = getImage<{PromiseState: boolean, PromiseResult: {[key: string]: string}}>(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
 
     if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
       return promise.PromiseResult.Poster;
     }
   }
   if (movieName) {
-    const promise = getImage<{PromiseState: boolean, PromiseResult: [Poster: string]}>(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
+    const promise = getImage<{PromiseState: boolean, PromiseResult: {[key: string]: string}}>(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
 
     if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
       return promise.PromiseResult.Poster;
