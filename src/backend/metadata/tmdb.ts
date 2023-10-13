@@ -18,7 +18,7 @@ import {
   TMDBShowResponse,
   TMDBShowResult,
 } from "./types/tmdb";
-import { mwFetch } from "../helpers/fetch";
+import { mwFetch, baseRawFetch } from "../helpers/fetch";
 
 export function mediaTypeToTMDB(type: MWMediaType): TMDBContentTypes {
   if (type === MWMediaType.MOVIE) return "movie";
@@ -163,10 +163,14 @@ export function getMediaDetails<
   throw new Error("Invalid media type");
 }
 
+async function getImage(url: string) {
+  console.log(url);
+  console.log(await baseRawFetch(url));
+}
+
 export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
-  console.log("getting image");
-  if (movieReleaseDate && movieName) return `https://www.omdbapi.com/?apikey=daf26042&&t=${movieName}&y=${movieReleaseDate}`;
-  if (movieName) return `https://www.omdbapi.com/?apikey=daf26042&&t=${movieName}`;
+  if (movieReleaseDate && movieName) getImage(`https://www.omdbapi.com/?apikey=daf26042&&t=${movieName}&y=${movieReleaseDate}`); return `https://www.omdbapi.com/?apikey=daf26042&&t=${movieName}&y=${movieReleaseDate}`;
+  if (movieName) getImage(`https://www.omdbapi.com/?apikey=daf26042&&t=${movieName}`); return `https://www.omdbapi.com/?apikey=daf26042&&t=${movieName}`;
 }
 
 export async function getEpisodes(
