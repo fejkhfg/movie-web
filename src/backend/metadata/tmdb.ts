@@ -164,7 +164,7 @@ export function getMediaDetails<
 }
 
 export function getMediaPoster(posterPath: string | null): string | undefined {
-  if (posterPath) return `https://www.omdbapi.com/?apikey=daf26042&${posterPath}`;
+  if (posterPath) return `https://image.tmdb.org/t/p/w185/${posterPath}`;
 }
 
 export async function getEpisodes(
@@ -219,7 +219,6 @@ export function formatTMDBSearchResult(
   const type = TMDBMediaToMediaType(mediatype);
   if (type === MWMediaType.SERIES) {
     const show = result as TMDBShowResult;
-    // console.log(result);
     return {
       title: show.name,
       poster: getMediaPoster(show.poster_path),
