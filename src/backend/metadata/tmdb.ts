@@ -163,7 +163,7 @@ export function getMediaDetails<
   throw new Error("Invalid media type");
 }
 
-function getImage(url: string): Promise<Poster> {
+function getImage(url: string): Promise<String> {
   return baseRawFetch(url);
 }
 
