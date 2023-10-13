@@ -164,7 +164,12 @@ export function getMediaDetails<
 }
 
 function getImage(url: string): Promise<string> {
-  return baseRawFetch(url);
+  console.log(formatUrl(url));
+  return baseRawFetch(formatUrl(url));
+}
+
+function formatUrl(url: string): string {
+  return url.replace(/\s+/g, '-');
 }
 
 export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
