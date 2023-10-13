@@ -217,7 +217,7 @@ export async function getMovieFromExternalId(
   return movie.id.toString();
 }
 
-export function formatTMDBSearchResult(
+export async function formatTMDBSearchResult(
   result: TMDBShowResult | TMDBMovieResult,
   mediatype: TMDBContentTypes
 ): TMDBMediaResult {
