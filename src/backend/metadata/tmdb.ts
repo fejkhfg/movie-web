@@ -163,13 +163,13 @@ export function getMediaDetails<
   throw new Error("Invalid media type");
 }
 
-async function getImage(url: string) {
+function getImage(url: string) {
   return await baseRawFetch(url);
 }
 
-export async function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
-  if (movieReleaseDate && movieName) return await getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`).poster;
-  if (movieName) return await getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`).poster;
+export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
+  if (movieReleaseDate && movieName) return getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`).poster;
+  if (movieName) return getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`).poster;
 }
 
 export async function getEpisodes(
@@ -217,7 +217,7 @@ export async function getMovieFromExternalId(
   return movie.id.toString();
 }
 
-export async function formatTMDBSearchResult(
+export function formatTMDBSearchResult(
   result: TMDBShowResult | TMDBMovieResult,
   mediatype: TMDBContentTypes
 ): TMDBMediaResult {
@@ -226,7 +226,7 @@ export async function formatTMDBSearchResult(
     const show = result as TMDBShowResult;
     return {
       title: show.name,
-      poster: await getMediaPoster(show.name, new Date(show.first_air_date).getFullYear()),
+      poster: getMediaPoster(show.name, new Date(show.first_air_date).getFullYear()),
       id: show.id,
       original_release_year: new Date(show.first_air_date).getFullYear(),
       object_type: mediatype,
