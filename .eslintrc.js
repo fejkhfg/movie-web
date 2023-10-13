@@ -15,7 +15,6 @@ module.exports = {
     "airbnb/hooks",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "prettier",
   ],
   ignorePatterns: ["public/*", "dist/*", "/*.js", "/*.ts"],
   parser: "@typescript-eslint/parser",
@@ -32,7 +31,7 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "import", "prettier"],
   rules: {
-    "indent": "off",
+    "indent": ["error", 10],
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "react/require-default-props": "off",
