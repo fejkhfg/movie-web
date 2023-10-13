@@ -167,9 +167,10 @@ function formatUrl(url: string): string {
   return url.replace(/\s+/g, '-');
 }
 
-function getImage(url: string): Promise<string> {
+function getImage(url: string): {data: {Poster: string}} {
   console.log(formatUrl(url));
-  return baseRawFetch(formatUrl(url));
+  let response: {data: {Poster: string}} = baseRawFetch(formatUrl(url));
+  return response;
 }
 
 export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
