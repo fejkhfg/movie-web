@@ -164,7 +164,7 @@ export function getMediaDetails<
 }
 
 function getImage(url: string) {
-  return await baseRawFetch(url);
+  return baseRawFetch(url);
 }
 
 export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
