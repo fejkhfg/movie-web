@@ -176,6 +176,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     const promise: any = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
 
     if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
+      console.log(promise.PromiseResult.Poster);
       return promise.PromiseResult.Poster;
     }
   }
@@ -183,6 +184,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     const promise: any = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
 
     if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
+      console.log(promise.PromiseResult.Poster);
       return promise.PromiseResult.Poster;
     }
   }
