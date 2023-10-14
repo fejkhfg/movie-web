@@ -73,7 +73,7 @@ export function formatTMDBMetaResult(
         season_number: v.season_number,
         title: v.name,
       })),
-      poster: ) "" ?? undefined,
+      poster: "" ?? undefined,
       original_release_year: new Date(show.first_air_date).getFullYear(),
     };
   }
