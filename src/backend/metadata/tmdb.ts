@@ -251,7 +251,7 @@ export async function getMovieFromExternalId(
   return movie.id.toString();
 }
 
-export function formatTMDBSearchResult(
+export async function formatTMDBSearchResult(
   result: TMDBShowResult | TMDBMovieResult,
   mediatype: TMDBContentTypes
 ): TMDBMediaResult {
@@ -270,7 +270,7 @@ export function formatTMDBSearchResult(
 
   return {
     title: movie.title,
-    poster: getMediaPoster(getMediaDetails(movie.id.toString(), "movie").imdb_id),
+    poster: getMediaPoster(await getMediaDetails(movie.id.toString(), "movie").imdb_id),
     id: movie.id,
     original_release_year: new Date(movie.release_date).getFullYear(),
     object_type: mediatype,
