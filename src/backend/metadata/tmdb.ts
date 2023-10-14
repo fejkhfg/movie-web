@@ -172,12 +172,22 @@ function getImage<T>(url: string): Promise<T> {
 }
 
 export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string {
-  const poster = "";
+  let poster = "";
   
   if (movieReleaseDate && movieName) {
-    fetch(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`)
-    .then(response => response.json())
-    .then(data => return data.Poster)
+    const fetchReq = fetch(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`)
+    .then((response) => { 
+            return response.json().then((data) => {
+                console.log(data);
+                return data;
+            }).catch((err) => {
+                console.log(err);
+            }) 
+        });
+
+    fetchReq.then((data) => {
+       poster = data.Poster;
+    }        
     /* const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
 
     promise.then(function (e) {
@@ -198,9 +208,19 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     // }
   }
   if (movieName) {
-    fetch(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`)
-    .then(response => response.json())
-    .then(data => return data.Poster)
+    const fetchReq = fetch(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`)
+    .then((response) => { 
+            return response.json().then((data) => {
+                console.log(data);
+                return data;
+            }).catch((err) => {
+                console.log(err);
+            }) 
+        });
+
+    fetchReq.then((data) => {
+       poster = data.Poster;
+    }    
     /* const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
 
     promise.then(function (e) {
@@ -221,7 +241,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     // }
   }
 
-  return "";
+  return poster;
 }
 
 export async function getEpisodes(
