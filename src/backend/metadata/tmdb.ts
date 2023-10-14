@@ -171,7 +171,7 @@ function getImage<T>(url: string): Promise<T> {
   return baseRawFetch<T>(formatUrl(url));
 }
 
-export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string? {
+export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
   if (movieReleaseDate && movieName) {
     const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
 
@@ -202,6 +202,8 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     //   return promise.PromiseResult.Poster;
     // }
   }
+
+  return;
 }
 
 export async function getEpisodes(
