@@ -205,7 +205,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     // }
   }
 
-  while (poster == "") {
+  while (poster === "") {
     setTimeout( () => {console.log("Waiting")}, 100 );
   }
 
