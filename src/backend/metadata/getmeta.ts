@@ -48,7 +48,7 @@ export interface DetailedMeta {
   tmdbId?: string;
 }
 
-export async function formatTMDBMetaResult(
+export function formatTMDBMetaResult(
   details: TMDBShowData | TMDBMovieData,
   type: MWMediaType
 ): TMDBMediaResult {
@@ -58,7 +58,7 @@ export async function formatTMDBMetaResult(
       id: details.id,
       title: movie.title,
       object_type: mediaTypeToTMDB(type),
-      poster: getMediaPoster(await getMediaDetails(details.id.toString(), "movie").imdb_id) ?? undefined,
+      poster: getMediaPoster(getMediaDetails(details.id.toString(), "movie").imdb_id) ?? undefined,
       original_release_year: new Date(movie.release_date).getFullYear(),
     };
   }
