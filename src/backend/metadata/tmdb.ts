@@ -171,7 +171,7 @@ function getImage<T>(url: string): Promise<T> {
   return baseRawFetch<T>(formatUrl(url));
 }
 
-export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
+export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): Partial<string> {
   let poster = "";
   
   if (movieReleaseDate && movieName) {
