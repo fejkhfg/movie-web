@@ -171,7 +171,7 @@ function getImage<T>(url: string): Promise<T> {
   return baseRawFetch<T>(formatUrl(url));
 }
 
-export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): any {
+export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string {
   let poster = "";
   
   if (movieReleaseDate && movieName) {
@@ -213,6 +213,8 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     //   console.log(promise.PromiseResult);
     //   return promise.PromiseResult.Poster;
     // }
+  } else {
+    return "";
   }
 }
 
