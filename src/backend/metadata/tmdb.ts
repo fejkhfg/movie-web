@@ -175,7 +175,10 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
   let poster = "";
   
   if (movieReleaseDate && movieName) {
-    const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
+    fetch(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`)
+    .then(response => response.json())
+    .then(data => console.log(data))
+    /* const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
 
     promise.then(function (e) {
         console.log(e);
@@ -187,7 +190,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     promise.finally(function () {
         console.log("DONEEEEE");
         return poster;
-    });
+    }); */
 
     // if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
     //   console.log(promise.PromiseResult);
@@ -195,26 +198,27 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     // }
   }
   if (movieName) {
-    const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
+    fetch(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`)
+    .then(response => response.json())
+    .then(data => console.log(data))
+    /* const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
 
     promise.then(function (e) {
         console.log(e);
         console.log(e.Title || "NO TITLE???");
         console.log(e.Poster || "NO POSTER???");
         poster = e.Poster || "";
-    });
+    }); 
 
     promise.finally(function () {
         console.log("DONEEEEE");
         return poster;
-    });
+    }); */
 
     // if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
     //   console.log(promise.PromiseResult);
     //   return promise.PromiseResult.Poster;
     // }
-  } else {
-    return "";
   }
 
   return "";
