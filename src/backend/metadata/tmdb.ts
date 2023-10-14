@@ -205,7 +205,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     // }
   }
 
-  console.log("Final Poster: " + poster);
+  console.log(`Final Poster: ${poster}`);
 
   return poster;
 }
