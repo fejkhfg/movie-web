@@ -172,6 +172,8 @@ function getImage<T>(url: string): Promise<T> {
 }
 
 export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
+  let poster = "";
+  
   if (movieReleaseDate && movieName) {
     const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
 
@@ -179,7 +181,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
         console.log(e);
         console.log(e.Title || "NO TITLE???");
         console.log(e.Poster || "NO POSTER???");
-        return e.Poster;
+        poster = e.Poster || undefined;
     });
 
     // if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
@@ -194,7 +196,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
         console.log(e);
         console.log(e.Title || "NO TITLE???");
         console.log(e.Poster || "NO POSTER???");
-        return e.Poster;
+        poster = e.Poster || undefined;
     });
 
     // if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
@@ -203,7 +205,9 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     // }
   }
 
-  return "";
+  console.log(poster);
+
+  return poster;
 }
 
 export async function getEpisodes(
