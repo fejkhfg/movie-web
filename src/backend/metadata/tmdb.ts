@@ -323,7 +323,7 @@ export function formatTMDBSearchResult(
                 console.log(data.Poster);
 
                 if (data.Response && data.Response === "False" && data.Error === "Request limit reached!") {
-                  setUsed(indexFromKey(apikey));
+                  setUsed(indexFromKey(currentAPIKey));
                 }
                 
                 poster = data.Poster;
