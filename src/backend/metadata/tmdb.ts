@@ -301,18 +301,18 @@ export function formatTMDBSearchResult(
     const show = result as TMDBShowResult;
     return {
       title: show.name,
-      poster: getMediaPoster(show.name, new Date(show.first_air_date).getFullYear()),
+      poster: getMediaPoster(show.name, new Date(show.first_air_date).getFullYear()).Poster,
       id: show.id,
       original_release_year: new Date(show.first_air_date).getFullYear(),
       object_type: mediatype,
     };
   }
   const movie = result as TMDBMovieResult;
-  console.log(getMediaPoster(movie.title, new Date(movie.release_date).getFullYear()));
+  console.log(getMediaPoster(movie.title, new Date(movie.release_date).getFullYear()).Poster);
 
   return {
     title: movie.title,
-    poster: getMediaPoster(movie.title, new Date(movie.release_date).getFullYear()),
+    poster: getMediaPoster(movie.title, new Date(movie.release_date).getFullYear()).Poster,
     id: movie.id,
     original_release_year: new Date(movie.release_date).getFullYear(),
     object_type: mediatype,
