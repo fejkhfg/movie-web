@@ -214,8 +214,6 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     //   return promise.PromiseResult.Poster;
     // }
   }
-
-  return poster;
 }
 
 export async function getEpisodes(
