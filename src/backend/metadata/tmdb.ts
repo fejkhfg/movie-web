@@ -180,6 +180,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     promise.then(function (e) {
         console.log(e);
         console.log(e.Title || "NO TITLE???");
+        console.log(e.Poster || "NO POSTER???");
         poster = e.Poster;
     });
 
@@ -194,6 +195,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     promise.then(function (e) {
         console.log(e);
         console.log(e.Title || "NO TITLE???");
+        console.log(e.Poster || "NO POSTER???");
         poster = e.Poster
     });
 
