@@ -184,7 +184,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
         poster = e.Poster || "";
     });
 
-    promise.finally(function (e) {
+    promise.finally(function () {
         console.log("DONEEEEE");
         return poster;
     });
@@ -204,7 +204,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
         poster = e.Poster || "";
     });
 
-    promise.finally(function (e) {
+    promise.finally(function () {
         console.log("DONEEEEE");
         return poster;
     });
