@@ -198,12 +198,12 @@ function setUsed(index: any) {
   }
 }
 
-export function getMediaPoster(imdbId: number) {
+export function getMediaPoster(imdbId: string) {
   currentAPIKey = getAPIKey(0);
 
-  console.log(`http://img.omdbapi.com/?apikey=${currentAPIKey}&i=tt${imdbId}`);
+  console.log(`http://img.omdbapi.com/?apikey=${currentAPIKey}&i=${imdbId}`);
   
-  return `http://img.omdbapi.com/?apikey=${currentAPIKey}&i=tt${imdbId}`;
+  return `http://img.omdbapi.com/?apikey=${currentAPIKey}&i=${imdbId}`;
 }
 
 export async function getEpisodes(
@@ -260,7 +260,7 @@ export function formatTMDBSearchResult(
     const show = result as TMDBShowResult;
     return {
       title: show.name,
-      poster: getMediaPoster(show.id),
+      poster: getMediaPoster(`tt${show.id}`),
       id: show.id,
       original_release_year: new Date(show.first_air_date).getFullYear(),
       object_type: mediatype,
