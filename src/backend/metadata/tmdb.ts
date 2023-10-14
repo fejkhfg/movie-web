@@ -198,59 +198,10 @@ function setUsed(index: any) {
   }
 }
 
-function getImage<T>(url: string): Promise<T> {
-  return baseRawFetch<T>(formatUrl(url));
-}
-
-export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): any {
+export function getMediaPoster(imdbId: string {
 currentAPIKey = getAPIKey(0);
   
-  if (movieReleaseDate && movieName) {
-    const fetchReq = fetch(`https://www.omdbapi.com/?apikey=${currentAPIKey}&t=${movieName}&y=${movieReleaseDate}`);
-    return fetchReq;
-    /* const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
-
-    promise.then(function (e) {
-        console.log(e);
-        console.log(e.Title || "NO TITLE???");
-        console.log(e.Poster || "NO POSTER???");
-        poster = e.Poster || "";
-    });
-
-    promise.finally(function () {
-        console.log("DONEEEEE");
-        return poster;
-    }); */
-
-    // if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
-    //   console.log(promise.PromiseResult);
-    //   return promise.PromiseResult.Poster;
-    // }
-  }
-  if (movieName) {
-    const fetchReq = fetch(`https://www.omdbapi.com/?apikey=${currentAPIKey}&t=${movieName}`)
-    return fetchReq;
-    /* const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
-
-    promise.then(function (e) {
-        console.log(e);
-        console.log(e.Title || "NO TITLE???");
-        console.log(e.Poster || "NO POSTER???");
-        poster = e.Poster || "";
-    }); 
-
-    promise.finally(function () {
-        console.log("DONEEEEE");
-        return poster;
-    }); */
-
-    // if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
-    //   console.log(promise.PromiseResult);
-    //   return promise.PromiseResult.Poster;
-    // }
-  }
-
-  return undefined;
+  return `http://img.omdbapi.com/?apikey=${currentAPIKey}&i=${imdbId}`;
 }
 
 export async function getEpisodes(
@@ -307,35 +258,17 @@ export function formatTMDBSearchResult(
     const show = result as TMDBShowResult;
     return {
       title: show.name,
-      poster: getMediaPoster(show.name, new Date(show.first_air_date).getFullYear()).Poster,
+      poster: getMediaPoster(show.id),
       id: show.id,
       original_release_year: new Date(show.first_air_date).getFullYear(),
       object_type: mediatype,
     };
   }
   const movie = result as TMDBMovieResult;
-  const fetchReq = getMediaPoster(movie.title, new Date(movie.release_date).getFullYear())
-  let poster = "";
-  
-  if (fetchReq) {
-    fetchReq.then((response) => { 
-            return response.json().then((data) => {
-                console.log(data.Poster);
-
-                if (data.Response && data.Response === "False" && data.Error === "Request limit reached!") {
-                  setUsed(indexFromKey(currentAPIKey));
-                }
-                
-                poster = data.Poster;
-            }).catch((err) => {
-                console.log(err);
-            }) 
-        });
-  }
 
   return {
     title: movie.title,
-    poster: poster,
+    poster: getMediaPoster(movie.id),
     id: movie.id,
     original_release_year: new Date(movie.release_date).getFullYear(),
     object_type: mediatype,
