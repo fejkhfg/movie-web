@@ -201,7 +201,7 @@ function getImage<T>(url: string): Promise<T> {
   return baseRawFetch<T>(formatUrl(url));
 }
 
-export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): any {
+export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string {
   let poster = "";
   const apikey = getAPIKey(0);
   
@@ -209,7 +209,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     const fetchReq = fetch(`https://www.omdbapi.com/?apikey=${apikey}&t=${movieName}&y=${movieReleaseDate}`)
     .then((response) => { 
             return response.json().then((data) => {
-                console.log(data);
+                console.log(data.Poster);
 
                 if (data.Response && data.Response === "False" && data.Error === "Request limit reached!") {
                   setUsed(indexFromKey(apikey));
@@ -246,7 +246,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     const fetchReq = fetch(`https://www.omdbapi.com/?apikey=${apikey}&t=${movieName}`)
     .then((response) => { 
             return response.json().then((data) => {
-                console.log(data);
+                console.log(data.Poster);
 
                 if (data.Response && data.Response === "False" && data.Error === "Request limit reached!") {
                   setUsed(indexFromKey(apikey));
