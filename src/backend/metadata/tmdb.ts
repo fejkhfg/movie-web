@@ -171,7 +171,7 @@ function getImage<T>(url: string): Promise<T> {
   return baseRawFetch<T>(formatUrl(url));
 }
 
-export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string | undefined {
+export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string? {
   if (movieReleaseDate && movieName) {
     const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
 
