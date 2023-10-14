@@ -260,7 +260,7 @@ export function formatTMDBSearchResult(
     const show = result as TMDBShowResult;
     return {
       title: show.name,
-      poster: getMediaPoster(getMediaDetails(show., "show").show_id,
+      poster: "",
       id: show.id,
       original_release_year: new Date(show.first_air_date).getFullYear(),
       object_type: mediatype,
@@ -270,7 +270,7 @@ export function formatTMDBSearchResult(
 
   return {
     title: movie.title,
-    poster: getMediaPoster(getMediaDetails(movie., "movie").imdb_id),
+    poster: getMediaPoster(getMediaDetails(movie.id.toString(), "movie").imdb_id),
     id: movie.id,
     original_release_year: new Date(movie.release_date).getFullYear(),
     object_type: mediatype,
