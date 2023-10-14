@@ -203,7 +203,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     // }
   }
 
-  return;
+  return "";
 }
 
 export async function getEpisodes(
