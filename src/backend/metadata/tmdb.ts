@@ -19,6 +19,7 @@ import {
   TMDBShowResult,
 } from "./types/tmdb";
 import { baseRawFetch, mwFetch } from "../helpers/fetch";
+const OMDBKeys = ["7add0293": [true, "7add0293"], "daf26042": [true, "daf26042"], "9148ff20": [true, "9148ff20"], "a78474de": [true, "a78474de"], "bbe78db3": [true, "bbe78db3"]}];
 
 export function mediaTypeToTMDB(type: MWMediaType): TMDBContentTypes {
   if (type === MWMediaType.MOVIE) return "movie";
@@ -167,18 +168,49 @@ function formatUrl(url: string): string {
   return url.replace(/\s+/g, '-');
 }
 
+function getAPIKey(currentIndex: number): string {
+  if (currentIndex > 4) {
+    return OMDBKeys[0][1];
+  } else {
+    if (OMDBKeys[currentIndex][0] === false) {
+      return getAPIKey(currentIndex+1);
+    } else {
+      return OMDBKeys[currentIndex][1];
+    }
+  }
+}
+
+function indexFromKey(key: string): number {
+  for (let i = 0; i < OMDBKeys.length; i++) { 
+    if (OMDBKeys[i][1] === key) {
+      return i;
+    }
+  }
+
+  return 0;
+}
+
+function setUsed(index: number) {
+  OMDBKeys[index][0] = false;
+}
+
 function getImage<T>(url: string): Promise<T> {
   return baseRawFetch<T>(formatUrl(url));
 }
 
 export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): any {
   let poster = "";
+  const apikey = getAPIKey(0);
   
   if (movieReleaseDate && movieName) {
-    const fetchReq = fetch(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`)
+    const fetchReq = fetch(`https://www.omdbapi.com/?apikey=${apikey}&t=${movieName}&y=${movieReleaseDate}`)
     .then((response) => { 
             return response.json().then((data) => {
                 console.log(data);
+
+                if (data.Response && data.Response === "False" && data.Error === "Request limit reached!") {
+                  setUsed(indexFromKey(apikey));
+                }
                 return data;
             }).catch((err) => {
                 console.log(err);
@@ -208,7 +240,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     // }
   }
   if (movieName) {
-    const fetchReq = fetch(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`)
+    const fetchReq = fetch(`https://www.omdbapi.com/?apikey=${getAPIKey(0)}&t=${movieName}`)
     .then((response) => { 
             return response.json().then((data) => {
                 console.log(data);
