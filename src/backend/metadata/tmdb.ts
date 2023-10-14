@@ -279,6 +279,7 @@ export function formatTMDBSearchResult(
     };
   }
   const movie = result as TMDBMovieResult;
+  console.log(getMediaPoster(movie.title, new Date(movie.release_date).getFullYear()));
 
   return {
     title: movie.title,
