@@ -181,7 +181,12 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
         console.log(e);
         console.log(e.Title || "NO TITLE???");
         console.log(e.Poster || "NO POSTER???");
-        poster = e.Poster || "DONE";
+        poster = e.Poster || "";
+    });
+
+    promise.finally(function (e) {
+        console.log("DONEEEEE");
+        return poster;
     });
 
     // if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
@@ -196,7 +201,12 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
         console.log(e);
         console.log(e.Title || "NO TITLE???");
         console.log(e.Poster || "NO POSTER???");
-        poster = e.Poster || "DONE";
+        poster = e.Poster || "";
+    });
+
+    promise.finally(function (e) {
+        console.log("DONEEEEE");
+        return poster;
     });
 
     // if (promise.PromiseState && promise.PromiseResult && promise.PromiseResult.Poster) {
@@ -204,12 +214,6 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     //   return promise.PromiseResult.Poster;
     // }
   }
-
-  while (poster === "") {
-    setTimeout( () => {console.log("Waiting")}, 100 );
-  }
-
-  console.log(`Final Poster: ${poster}`);
 
   return poster;
 }
