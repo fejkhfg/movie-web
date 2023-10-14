@@ -20,7 +20,7 @@ export async function searchForMedia(query: MWQuery): Promise<MWMediaMeta[]> {
 
   const data = await searchMedia(searchQuery, mediaTypeToTMDB(type));
   const results = data.results.map((v) => {
-    const formattedResult = formatTMDBSearchResult(v, mediaTypeToTMDB(type));
+    const formattedResult = await formatTMDBSearchResult(v, mediaTypeToTMDB(type));
     return formatTMDBMeta(formattedResult);
   });
 
