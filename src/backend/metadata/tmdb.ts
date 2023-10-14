@@ -168,7 +168,7 @@ function formatUrl(url: string): string {
   return url.replace(/\s+/g, '-');
 }
 
-function getAPIKey(currentIndex: number): string {
+function getAPIKey(currentIndex: number): string | boolean {
   if (currentIndex > 4) {
     return OMDBKeys[0][1];
   } else {
@@ -240,10 +240,14 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     // }
   }
   if (movieName) {
-    const fetchReq = fetch(`https://www.omdbapi.com/?apikey=${getAPIKey(0)}&t=${movieName}`)
+    const fetchReq = fetch(`https://www.omdbapi.com/?apikey=${apikey}&t=${movieName}`)
     .then((response) => { 
             return response.json().then((data) => {
                 console.log(data);
+
+                if (data.Response && data.Response === "False" && data.Error === "Request limit reached!") {
+                  setUsed(indexFromKey(apikey));
+                }
                 return data;
             }).catch((err) => {
                 console.log(err);
@@ -252,7 +256,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
 
     fetchReq.then((data) => {
        poster = data.Poster;
-    });
+    });      
     /* const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
 
     promise.then(function (e) {
