@@ -201,7 +201,7 @@ function getImage<T>(url: string): Promise<T> {
   return baseRawFetch<T>(formatUrl(url));
 }
 
-export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string {
+export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): any {
   let poster = "";
   const apikey = getAPIKey(0);
   
