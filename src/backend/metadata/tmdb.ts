@@ -171,7 +171,7 @@ function getImage<T>(url: string): Promise<T> {
   return baseRawFetch<T>(formatUrl(url));
 }
 
-export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): string {
+export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): any {
   let poster = "";
   
   if (movieReleaseDate && movieName) {
@@ -308,7 +308,7 @@ export function formatTMDBSearchResult(
     };
   }
   const movie = result as TMDBMovieResult;
-  console.log(getMediaPoster(movie.title, new Date(movie.release_date).getFullYear()).Poster);
+  console.log(getMediaPoster(movie.title, new Date(movie.release_date).getFullYear()));
 
   return {
     title: movie.title,
