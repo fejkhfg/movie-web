@@ -179,6 +179,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
 
     promise.then(function (e) {
         console.log(e);
+        console.log(e.Title || "NO TITLE???");
         poster = e.Poster;
     });
 
@@ -192,6 +193,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
 
     promise.then(function (e) {
         console.log(e);
+        console.log(e.Title || "NO TITLE???");
         poster = e.Poster
     });
 
