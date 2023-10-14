@@ -19,6 +19,7 @@ import {
   TMDBShowResult,
 } from "./types/tmdb";
 import { baseRawFetch, mwFetch } from "../helpers/fetch";
+
 const OMDBKeys = [[true, "7add0293"], [true, "daf26042"], [true, "9148ff20"], [true, "a78474de"], [true, "bbe78db3"]];
 
 export function mediaTypeToTMDB(type: MWMediaType): TMDBContentTypes {
@@ -171,28 +172,28 @@ function formatUrl(url: string): string {
 function getAPIKey(currentIndex: number): string | boolean {
   if (currentIndex > 4) {
     return OMDBKeys[0][1];
-  } else {
-    if (OMDBKeys[currentIndex][0] === false) {
-      return getAPIKey(currentIndex+1);
-    } else {
-      return OMDBKeys[currentIndex][1];
-    }
   }
+  if (OMDBKeys[currentIndex][0] === false) {
+    return getAPIKey(currentIndex+1);
+  }
+  return OMDBKeys[currentIndex][1];
 }
 
 function indexFromKey(key: string | boolean): number {
-  for (let i = 0; i < OMDBKeys.length; i++) { 
+  for (let i = 0; i < OMDBKeys.length;) { 
     if (OMDBKeys[i][1] === key) {
       return i;
     }
+
+    i += 1;
   }
 
   return 0;
 }
 
-function setUsed(index: number) {
-  if (parseInt(index) && parseInt(index) < 5) {
-    OMDBKeys[index][0] = false;
+function setUsed(index: any) {
+  if (!Number.isNaN(parseFloat(index)) && parseFloat(index) < 5) {
+    OMDBKeys[parseFloat(index)][0] = false;
   }
 }
 
