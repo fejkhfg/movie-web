@@ -19,7 +19,7 @@ import {
   TMDBShowResult,
 } from "./types/tmdb";
 import { baseRawFetch, mwFetch } from "../helpers/fetch";
-const OMDBKeys = ["7add0293": [true, "7add0293"], "daf26042": [true, "daf26042"], "9148ff20": [true, "9148ff20"], "a78474de": [true, "a78474de"], "bbe78db3": [true, "bbe78db3"]}];
+const OMDBKeys = [[0]=[true, "7add0293"], [1]=[true, "daf26042"], [2]=[true, "9148ff20"], [3]=[true, "a78474de"], [4]=[true, "bbe78db3"]];
 
 export function mediaTypeToTMDB(type: MWMediaType): TMDBContentTypes {
   if (type === MWMediaType.MOVIE) return "movie";
