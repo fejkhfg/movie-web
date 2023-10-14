@@ -180,7 +180,7 @@ function getAPIKey(currentIndex: number): string | boolean {
   }
 }
 
-function indexFromKey(key: string): number {
+function indexFromKey(key: string | boolean): number {
   for (let i = 0; i < OMDBKeys.length; i++) { 
     if (OMDBKeys[i][1] === key) {
       return i;
@@ -191,7 +191,9 @@ function indexFromKey(key: string): number {
 }
 
 function setUsed(index: number) {
-  OMDBKeys[index][0] = false;
+  if (parseInt(index) && parseInt(index) < 5) {
+    OMDBKeys[index][0] = false;
+  }
 }
 
 function getImage<T>(url: string): Promise<T> {
