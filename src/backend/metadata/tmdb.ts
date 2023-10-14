@@ -21,6 +21,7 @@ import {
 import { baseRawFetch, mwFetch } from "../helpers/fetch";
 
 const OMDBKeys = [[true, "7add0293"], [true, "daf26042"], [true, "9148ff20"], [true, "a78474de"], [true, "bbe78db3"]];
+let currentAPIKey = OMDBKeys[0][1];
 
 export function mediaTypeToTMDB(type: MWMediaType): TMDBContentTypes {
   if (type === MWMediaType.MOVIE) return "movie";
@@ -202,27 +203,11 @@ function getImage<T>(url: string): Promise<T> {
 }
 
 export function getMediaPoster(movieName: string | null, movieReleaseDate: number | null): any {
-  let poster = "";
-  const apikey = getAPIKey(0);
+currentAPIKey = getAPIKey(0);
   
   if (movieReleaseDate && movieName) {
-    const fetchReq = fetch(`https://www.omdbapi.com/?apikey=${apikey}&t=${movieName}&y=${movieReleaseDate}`)
-    .then((response) => { 
-            return response.json().then((data) => {
-                console.log(data.Poster);
-
-                if (data.Response && data.Response === "False" && data.Error === "Request limit reached!") {
-                  setUsed(indexFromKey(apikey));
-                }
-                return data;
-            }).catch((err) => {
-                console.log(err);
-            }) 
-        });
-
-    fetchReq.then((data) => {
-       poster = data.Poster;
-    });      
+    const fetchReq = fetch(`https://www.omdbapi.com/?apikey=${currentAPIKey}&t=${movieName}&y=${movieReleaseDate}`);
+    return fetchReq;
     /* const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}&y=${movieReleaseDate}`);
 
     promise.then(function (e) {
@@ -243,23 +228,8 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     // }
   }
   if (movieName) {
-    const fetchReq = fetch(`https://www.omdbapi.com/?apikey=${apikey}&t=${movieName}`)
-    .then((response) => { 
-            return response.json().then((data) => {
-                console.log(data.Poster);
-
-                if (data.Response && data.Response === "False" && data.Error === "Request limit reached!") {
-                  setUsed(indexFromKey(apikey));
-                }
-                return data;
-            }).catch((err) => {
-                console.log(err);
-            }) 
-        });
-
-    fetchReq.then((data) => {
-       poster = data.Poster;
-    });      
+    const fetchReq = fetch(`https://www.omdbapi.com/?apikey=${currentAPIKey}&t=${movieName}`)
+    return fetchReq;
     /* const promise: Promise<any> = getImage(`https://www.omdbapi.com/?apikey=daf26042&t=${movieName}`);
 
     promise.then(function (e) {
@@ -280,10 +250,7 @@ export function getMediaPoster(movieName: string | null, movieReleaseDate: numbe
     // }
   }
 
-  console.log(`POSTER FOR ${movieName}: `);
-  console.log(poster);
-  console.log("\n\n\n");
-  return poster;
+  return undefined;
 }
 
 export async function getEpisodes(
@@ -347,11 +314,28 @@ export function formatTMDBSearchResult(
     };
   }
   const movie = result as TMDBMovieResult;
-  console.log(getMediaPoster(movie.title, new Date(movie.release_date).getFullYear()).Poster);
+  const fetchReq = getMediaPoster(movie.title, new Date(movie.release_date).getFullYear())
+  let poster = "";
+  
+  if (fetchReq) {
+    fetchReq.then((response) => { 
+            return response.json().then((data) => {
+                console.log(data.Poster);
+
+                if (data.Response && data.Response === "False" && data.Error === "Request limit reached!") {
+                  setUsed(indexFromKey(apikey));
+                }
+                
+                poster = data.Poster;
+            }).catch((err) => {
+                console.log(err);
+            }) 
+        });
+  }
 
   return {
     title: movie.title,
-    poster: getMediaPoster(movie.title, new Date(movie.release_date).getFullYear()).Poster,
+    poster: poster,
     id: movie.id,
     original_release_year: new Date(movie.release_date).getFullYear(),
     object_type: mediatype,
