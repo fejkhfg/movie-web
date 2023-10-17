@@ -270,14 +270,12 @@ export function formatTMDBSearchResult(
   const movie = result as TMDBMovieResult;
 
   getMediaDetails(movie.id.toString(), "movie").then(function(data) {
-      console.log(data);
+      return {
+        title: movie.title,
+        poster: getMediaPoster(data.imdb_id),
+        id: movie.id,
+        original_release_year: new Date(movie.release_date).getFullYear(),
+        object_type: mediatype,
+      };
   });
-
-  return {
-    title: movie.title,
-    poster: getMediaPoster(""),
-    id: movie.id,
-    original_release_year: new Date(movie.release_date).getFullYear(),
-    object_type: mediatype,
-  };
 }
