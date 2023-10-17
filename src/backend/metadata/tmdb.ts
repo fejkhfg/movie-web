@@ -198,10 +198,9 @@ function setUsed(index: any) {
   }
 }
 
-export function getMediaPoster(imdbId: string) {
+export function getMediaPoster(imdbId: string?) {
   currentAPIKey = getAPIKey(0);
 
-  console.log(imdbId);
   console.log(`http://img.omdbapi.com/?apikey=${currentAPIKey}&i=${imdbId}`);
   
   return `http://img.omdbapi.com/?apikey=${currentAPIKey}&i=${imdbId}`;
@@ -270,6 +269,7 @@ export function formatTMDBSearchResult(
   const movie = result as TMDBMovieResult;
 
   getMediaDetails(movie.id.toString(), "movie").then(function(data) {
+    console.log(data.imdb_id);
       return {
         title: movie.title,
         poster: getMediaPoster(data.imdb_id),
