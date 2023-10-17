@@ -269,7 +269,7 @@ export function formatTMDBSearchResult(
   }
   const movie = result as TMDBMovieResult;
 
-  console.log(getMediaDetails(movie.id.toString(), "movie").then(function(data) {
+  getMediaDetails(movie.id.toString(), "movie").then(function(data) {
       console.log(data);
   });
 
