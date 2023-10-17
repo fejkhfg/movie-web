@@ -269,9 +269,11 @@ export function formatTMDBSearchResult(
   }
   const movie = result as TMDBMovieResult;
 
+  console.log(getMediaDetails(movie.id.toString(), "movie"));
+
   return {
     title: movie.title,
-    poster: getMediaPoster(getMediaDetails(movie.id.toString(), "movie").imdb_id),
+    poster: getMediaPoster(""),
     id: movie.id,
     original_release_year: new Date(movie.release_date).getFullYear(),
     object_type: mediatype,
