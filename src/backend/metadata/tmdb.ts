@@ -198,7 +198,7 @@ function setUsed(index: any) {
   }
 }
 
-export function getMediaPoster(imdbId: string?) {
+export function getMediaPoster(imdbId: string | null | undefined) {
   currentAPIKey = getAPIKey(0);
 
   console.log(`http://img.omdbapi.com/?apikey=${currentAPIKey}&i=${imdbId}`);
