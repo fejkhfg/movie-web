@@ -278,4 +278,12 @@ export function formatTMDBSearchResult(
         object_type: mediatype,
       };
   });
+
+  return {
+        title: movie.title,
+        poster: "",
+        id: movie.id,
+        original_release_year: new Date(movie.release_date).getFullYear(),
+        object_type: mediatype,
+      };
 }
