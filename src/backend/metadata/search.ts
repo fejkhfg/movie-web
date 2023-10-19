@@ -10,7 +10,6 @@ import {
 import { MWMediaMeta, MWQuery } from "./types/mw";
 import {
   TMDBMovieData,
-  TMDBShowData,
 } from "./types/tmdb";
 
 const cache = new SimpleCache<MWQuery, MWMediaMeta[]>();
@@ -30,10 +29,10 @@ export async function searchForMedia(query: MWQuery): Promise<MWMediaMeta[]> {
       console.log(mediaDetails)
       const formattedResult = formatTMDBSearchResult(v, mediaTypeToTMDB(type), mediaDetails.imdb_id);
       return formatTMDBMeta(formattedResult);
-    } else {
-      const formattedResult = formatTMDBSearchResult(v, mediaTypeToTMDB(type), "");
-      return formatTMDBMeta(formattedResult);
     }
+    
+    const formattedResult = formatTMDBSearchResult(v, mediaTypeToTMDB(type), "");
+    return formatTMDBMeta(formattedResult);
   }));
 
   cache.set(query, results, 3600); // cache results for 1 hour
