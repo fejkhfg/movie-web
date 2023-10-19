@@ -5,6 +5,7 @@ import {
   formatTMDBSearchResult,
   mediaTypeToTMDB,
   searchMedia,
+  getMediaDetails
 } from "./tmdb";
 import { MWMediaMeta, MWQuery } from "./types/mw";
 
@@ -20,7 +21,7 @@ export async function searchForMedia(query: MWQuery): Promise<MWMediaMeta[]> {
 
   const data = await searchMedia(searchQuery, mediaTypeToTMDB(type));
   const results = data.results.map((v) => {
-    const formattedResult = formatTMDBSearchResult(v, mediaTypeToTMDB(type));
+    const formattedResult = formatTMDBSearchResult(v, mediaTypeToTMDB(type), (await getMediaDetails(v.id, mediaTypeToTMDB(type))).imdb_id);
     return formatTMDBMeta(formattedResult);
   });
 
