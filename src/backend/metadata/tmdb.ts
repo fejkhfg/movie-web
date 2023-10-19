@@ -253,31 +253,25 @@ export async function getMovieFromExternalId(
 
 export function formatTMDBSearchResult(
   result: TMDBShowResult | TMDBMovieResult,
-  mediatype: TMDBContentTypes
+  mediatype: TMDBContentTypes,
+  id: string,
 ): TMDBMediaResult {
   const type = TMDBMediaToMediaType(mediatype);
   if (type === MWMediaType.SERIES) {
     const show = result as TMDBShowResult;
     return {
       title: show.name,
-      poster: "",
+      poster: getMediaPoster(id || ""),
       id: show.id,
       original_release_year: new Date(show.first_air_date).getFullYear(),
       object_type: mediatype,
     };
   }
   const movie = result as TMDBMovieResult;
-  const mediaDetails = getMediaDetails(movie.id.toString(), "movie")
-
-  mediaDetails.then((data) => {
-    console.log(data)
-  })
-
-
-  console.log(mediaDetails)
+  
   return {
         title: movie.title,
-        poster: getMediaPoster(""),
+        poster: getMediaPoster(id || ""),
         id: movie.id,
         original_release_year: new Date(movie.release_date).getFullYear(),
         object_type: mediatype,
