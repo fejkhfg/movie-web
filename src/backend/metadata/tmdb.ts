@@ -274,7 +274,7 @@ export function formatTMDBSearchResult(
   })
 
 
-  console.log(`DATA: ${mediaDetails}`)
+  console.log(mediaDetails)
   return {
         title: movie.title,
         poster: getMediaPoster(""),
