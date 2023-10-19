@@ -21,10 +21,15 @@ export async function searchForMedia(query: MWQuery): Promise<MWMediaMeta[]> {
 
   const data = await searchMedia(searchQuery, mediaTypeToTMDB(type));
   const results = await Promise.all(data.results.map(async v => {
-    const mediaDetails = await getMediaDetails(v.id.toString(), mediaTypeToTMDB(type));
-    console.log(mediaDetails)
-    const formattedResult = formatTMDBSearchResult(v, mediaTypeToTMDB(type), mediaDetails.imdb_id);
-    return formatTMDBMeta(formattedResult);
+    if (mediaTypeToTMDB(type) == "movie") {
+      const mediaDetails = await getMediaDetails(v.id.toString(), mediaTypeToTMDB(type));
+      console.log(mediaDetails)
+      const formattedResult = formatTMDBSearchResult(v, mediaTypeToTMDB(type), mediaDetails.imdb_id);
+      return formatTMDBMeta(formattedResult);
+    } else {
+      const formattedResult = formatTMDBSearchResult(v, mediaTypeToTMDB(type), "");
+      return formatTMDBMeta(formattedResult);
+    }
   }));
 
   cache.set(query, results, 3600); // cache results for 1 hour
