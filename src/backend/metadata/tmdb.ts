@@ -267,14 +267,17 @@ export function formatTMDBSearchResult(
     };
   }
   const movie = result as TMDBMovieResult;
+  const mediaDetails = getMediaDetails(movie.id.toString(), "movie")
 
-  return getMediaDetails(movie.id.toString(), "movie").finally(function(data) {
-      return {
+  setTimeout(() => {
+    console.log(movieDetails)
+    console.log(getMediaPoster(movieDetails.imdb_id || "NO IMDB ID")
+    return {
         title: movie.title,
-        poster: getMediaPoster(data.imdb_id || ""),
+        poster: getMediaPoster(movieDetails.imdb_id || ""),
         id: movie.id,
         original_release_year: new Date(movie.release_date).getFullYear(),
         object_type: mediatype,
       };
-  });
+  }, 200)
 }
