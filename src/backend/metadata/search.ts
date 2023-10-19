@@ -3,9 +3,9 @@ import { SimpleCache } from "@/utils/cache";
 import {
   formatTMDBMeta,
   formatTMDBSearchResult,
+  getMediaDetails,
   mediaTypeToTMDB,
   searchMedia,
-  getMediaDetails
 } from "./tmdb";
 import { MWMediaMeta, MWQuery } from "./types/mw";
 
@@ -21,7 +21,8 @@ export async function searchForMedia(query: MWQuery): Promise<MWMediaMeta[]> {
 
   const data = await searchMedia(searchQuery, mediaTypeToTMDB(type));
   const results = await Promise.all(data.results.map(async v => {
-    const mediaDetails = await getMediaDetails(v.id, mediaTypeToTMDB(type));
+    const mediaDetails = await getMediaDetails(v.id.toString(), mediaTypeToTMDB(type));
+    console.log(mediaDetails)
     const formattedResult = formatTMDBSearchResult(v, mediaTypeToTMDB(type), mediaDetails.imdb_id);
     return formatTMDBMeta(formattedResult);
   }));
