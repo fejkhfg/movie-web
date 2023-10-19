@@ -271,7 +271,7 @@ export function formatTMDBSearchResult(
 
   setTimeout(() => {
     console.log(movieDetails)
-    console.log(getMediaPoster(movieDetails.imdb_id || "NO IMDB ID")
+    console.log(getMediaPoster(movieDetails.imdb_id || "NO IMDB ID"))
     return {
         title: movie.title,
         poster: getMediaPoster(movieDetails.imdb_id || ""),
