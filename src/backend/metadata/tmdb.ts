@@ -22,6 +22,7 @@ import { baseRawFetch, mwFetch } from "../helpers/fetch";
 
 const OMDBKeys = [[true, "7add0293"], [true, "daf26042"], [true, "9148ff20"], [true, "a78474de"], [true, "bbe78db3"]];
 let currentAPIKey = OMDBKeys[0][1];
+let currentAPIIndex = 0;
 
 export function mediaTypeToTMDB(type: MWMediaType): TMDBContentTypes {
   if (type === MWMediaType.MOVIE) return "movie";
@@ -175,6 +176,7 @@ function getAPIKey(currentIndex: number): string | boolean {
     return OMDBKeys[0][1];
   }
   if (OMDBKeys[currentIndex][0] === false) {
+    currentAPIIndex = currentIndex+1
     return getAPIKey(currentIndex+1);
   }
   return OMDBKeys[currentIndex][1];
@@ -199,9 +201,11 @@ function setUsed(index: any) {
 }
 
 export function getMediaPoster(imdbId: string) {
-  currentAPIKey = getAPIKey(0);
+  currentAPIKey = getAPIKey(currentAPIIndex);
 
-  console.log(`http://img.omdbapi.com/?apikey=${currentAPIKey}&i=${imdbId}`);
+  if (imdbId === null || imdbId === "") {
+    return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCMq4cGfAmaJAYVpXFPLY57EzVip1FTMK-ETQH1aU24VD-bYx5wJ4srHFP99zAgqXBvfQ:https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png&usqp=CAU"
+  }
   
   return `http://img.omdbapi.com/?apikey=${currentAPIKey}&i=${imdbId}`;
 }
