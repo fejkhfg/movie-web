@@ -8,6 +8,10 @@ import {
   searchMedia,
 } from "./tmdb";
 import { MWMediaMeta, MWQuery } from "./types/mw";
+import {
+  TMDBMovieData,
+  TMDBShowData,
+} from "./types/tmdb";
 
 const cache = new SimpleCache<MWQuery, MWMediaMeta[]>();
 cache.setCompare((a, b) => {
@@ -21,8 +25,8 @@ export async function searchForMedia(query: MWQuery): Promise<MWMediaMeta[]> {
 
   const data = await searchMedia(searchQuery, mediaTypeToTMDB(type));
   const results = await Promise.all(data.results.map(async v => {
-    if (mediaTypeToTMDB(type) == "movie") {
-      const mediaDetails = await getMediaDetails(v.id.toString(), mediaTypeToTMDB(type));
+    if (mediaTypeToTMDB(type) === "movie") {
+      const mediaDetails: TMDBMovieData = await getMediaDetails(v.id.toString(), mediaTypeToTMDB(type));
       console.log(mediaDetails)
       const formattedResult = formatTMDBSearchResult(v, mediaTypeToTMDB(type), mediaDetails.imdb_id);
       return formatTMDBMeta(formattedResult);
