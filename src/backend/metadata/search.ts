@@ -26,7 +26,6 @@ export async function searchForMedia(query: MWQuery): Promise<MWMediaMeta[]> {
   const results = await Promise.all(data.results.map(async v => {
     if (mediaTypeToTMDB(type) === "movie") {
       const mediaDetails: TMDBMovieData = await getMediaDetails(v.id.toString(), mediaTypeToTMDB(type));
-      console.log(mediaDetails)
       const formattedResult = formatTMDBSearchResult(v, mediaTypeToTMDB(type), mediaDetails.imdb_id);
       return formatTMDBMeta(formattedResult);
     }
