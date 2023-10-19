@@ -254,7 +254,7 @@ export async function getMovieFromExternalId(
 export function formatTMDBSearchResult(
   result: TMDBShowResult | TMDBMovieResult,
   mediatype: TMDBContentTypes,
-  id: string,
+  id: string | undefined,
 ): TMDBMediaResult {
   const type = TMDBMediaToMediaType(mediatype);
   if (type === MWMediaType.SERIES) {
