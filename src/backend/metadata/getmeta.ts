@@ -51,7 +51,7 @@ export interface DetailedMeta {
 export async function formatTMDBMetaResult(
   details: TMDBShowData | TMDBMovieData,
   type: MWMediaType
-): TMDBMediaResult {
+): Promise<TMDBMediaResult> {
   if (type === MWMediaType.MOVIE) {
     const movie = details as TMDBMovieData;
     const mediaDetails: TMDBMovieData = await getMediaDetails(details.id.toString(), mediaTypeToTMDB(type));
