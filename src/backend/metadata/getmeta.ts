@@ -59,7 +59,7 @@ export async function formatTMDBMetaResult(
       id: details.id,
       title: movie.title,
       object_type: mediaTypeToTMDB(type),
-      poster: getMediaPoster(details.id || "", mediaDetails.imdb_id || "") ?? undefined,
+      poster: getMediaPoster(details.id.toString() || "", mediaDetails.imdb_id || "") ?? undefined,
       original_release_year: new Date(movie.release_date).getFullYear(),
     };
   }
