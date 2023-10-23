@@ -23,6 +23,7 @@ import { baseRawFetch, mwFetch } from "../helpers/fetch";
 const OMDBKeys = [[true, "7add0293"], [true, "daf26042"], [true, "9148ff20"], [true, "a78474de"], [true, "bbe78db3"]];
 let currentAPIKey = OMDBKeys[0][1];
 let currentAPIIndex = 0;
+let cachedTMBDID = {}
 
 export function mediaTypeToTMDB(type: MWMediaType): TMDBContentTypes {
   if (type === MWMediaType.MOVIE) return "movie";
@@ -200,12 +201,18 @@ function setUsed(index: any) {
   }
 }
 
-export function getMediaPoster(imdbId: string) {
+export function getMediaPoster(id: string, imdbId: string) {
   currentAPIKey = getAPIKey(currentAPIIndex);
+
+  if (cachedTMDBID[id]) {
+    return `http://img.omdbapi.com/?apikey=${currentAPIKey}&i=${cachedTMDBID[id]}`;
+  }
 
   if (imdbId === null || imdbId === "") {
     return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCMq4cGfAmaJAYVpXFPLY57EzVip1FTMK-ETQH1aU24VD-bYx5wJ4srHFP99zAgqXBvfQ:https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png&usqp=CAU"
   }
+
+  cachedTMDBID[id] = imdbId
   
   return `http://img.omdbapi.com/?apikey=${currentAPIKey}&i=${imdbId}`;
 }
@@ -265,7 +272,7 @@ export function formatTMDBSearchResult(
     const show = result as TMDBShowResult;
     return {
       title: show.name,
-      poster: getMediaPoster(id || ""),
+      poster: getMediaPoster(show.id || "", id || ""),
       id: show.id,
       original_release_year: new Date(show.first_air_date).getFullYear(),
       object_type: mediatype,
@@ -275,7 +282,7 @@ export function formatTMDBSearchResult(
   
   return {
         title: movie.title,
-        poster: getMediaPoster(id || ""),
+        poster: getMediaPoster(movie.id || "", id || ""),
         id: movie.id,
         original_release_year: new Date(movie.release_date).getFullYear(),
         object_type: mediatype,
