@@ -23,7 +23,7 @@ import { baseRawFetch, mwFetch } from "../helpers/fetch";
 const OMDBKeys = [[true, "7add0293"], [true, "daf26042"], [true, "9148ff20"], [true, "a78474de"], [true, "bbe78db3"]];
 let currentAPIKey = OMDBKeys[0][1];
 let currentAPIIndex = 0;
-let cachedTMDBID = {}
+const cachedTMDBID = {}
 
 export function mediaTypeToTMDB(type: MWMediaType): TMDBContentTypes {
   if (type === MWMediaType.MOVIE) return "movie";
@@ -272,7 +272,7 @@ export function formatTMDBSearchResult(
     const show = result as TMDBShowResult;
     return {
       title: show.name,
-      poster: getMediaPoster(show.id.toString() || "", id || ""),
+      poster: getMediaPoster(show.id || "", id || ""),
       id: show.id,
       original_release_year: new Date(show.first_air_date).getFullYear(),
       object_type: mediatype,
@@ -282,7 +282,7 @@ export function formatTMDBSearchResult(
   
   return {
         title: movie.title,
-        poster: getMediaPoster(movie.id.toString() || "", id || ""),
+        poster: getMediaPoster(movie.id || "", id || ""),
         id: movie.id,
         original_release_year: new Date(movie.release_date).getFullYear(),
         object_type: mediatype,
