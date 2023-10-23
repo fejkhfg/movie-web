@@ -48,17 +48,18 @@ export interface DetailedMeta {
   tmdbId?: string;
 }
 
-export function formatTMDBMetaResult(
+export async function formatTMDBMetaResult(
   details: TMDBShowData | TMDBMovieData,
   type: MWMediaType
 ): TMDBMediaResult {
   if (type === MWMediaType.MOVIE) {
     const movie = details as TMDBMovieData;
+    const mediaDetails: TMDBMovieData = await getMediaDetails(details.id.toString(), mediaTypeToTMDB(type));
     return {
       id: details.id,
       title: movie.title,
       object_type: mediaTypeToTMDB(type),
-      poster: getMediaPoster(details.id || "", details.imdb_id || "") ?? undefined,
+      poster: getMediaPoster(details.id || "", mediaDetails.imdb_id || "") ?? undefined,
       original_release_year: new Date(movie.release_date).getFullYear(),
     };
   }
@@ -73,7 +74,7 @@ export function formatTMDBMetaResult(
         season_number: v.season_number,
         title: v.name,
       })),
-      poster: getMediaPoster(details.id || "", details.imdb_id || "") ?? undefined,
+      poster: getMediaPoster("", "") ?? undefined,
       original_release_year: new Date(show.first_air_date).getFullYear(),
     };
   }
@@ -118,7 +119,7 @@ export async function getMetaFromId(
     }
   }
 
-  const tmdbmeta = formatTMDBMetaResult(details, type);
+  const tmdbmeta = await formatTMDBMetaResult(details, type);
   if (!tmdbmeta) return null;
   const meta = formatTMDBMeta(tmdbmeta, seasonData);
   if (!meta) return null;
