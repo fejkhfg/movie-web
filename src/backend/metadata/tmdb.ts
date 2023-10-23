@@ -23,7 +23,7 @@ import { baseRawFetch, mwFetch } from "../helpers/fetch";
 const OMDBKeys = [[true, "7add0293"], [true, "daf26042"], [true, "9148ff20"], [true, "a78474de"], [true, "bbe78db3"]];
 let currentAPIKey = OMDBKeys[0][1];
 let currentAPIIndex = 0;
-const cachedTMDBID = {}
+const cachedTMDBID: {[key: string]: string} = {}
 
 export function mediaTypeToTMDB(type: MWMediaType): TMDBContentTypes {
   if (type === MWMediaType.MOVIE) return "movie";
