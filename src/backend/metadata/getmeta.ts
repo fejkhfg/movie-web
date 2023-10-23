@@ -48,7 +48,7 @@ export interface DetailedMeta {
   tmdbId?: string;
 }
 
-export async function formatTMDBMetaResult(
+export function formatTMDBMetaResult(
   details: TMDBShowData | TMDBMovieData,
   type: MWMediaType
 ): TMDBMediaResult {
